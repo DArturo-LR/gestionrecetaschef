@@ -30,6 +30,17 @@ fun DetallePantalla(
 
         viewModel.cargarDetalle(id)
     }
+    var comentario by remember {
+        mutableStateOf("")
+    }
+
+    var puntuacion by remember {
+        mutableStateOf("")
+    }
+
+    var vecesPreparada by remember {
+        mutableStateOf("")
+    }
 
     detalle?.let {
 
@@ -127,6 +138,138 @@ fun DetallePantalla(
                         MaterialTheme
                             .typography
                             .titleLarge
+                )
+
+            }
+            item {
+
+                Spacer(
+                    modifier =
+                        Modifier.height(16.dp)
+                )
+
+                Text(
+                    text = "Agregar opinión",
+
+                    style =
+                        MaterialTheme
+                            .typography
+                            .titleLarge
+                )
+
+                Spacer(
+                    modifier =
+                        Modifier.height(10.dp)
+                )
+
+                OutlinedTextField(
+
+                    value = comentario,
+
+                    onValueChange = {
+                        comentario = it
+                    },
+
+                    modifier = Modifier
+                        .fillMaxWidth(),
+
+                    label = {
+                        Text("Comentario")
+                    }
+                )
+
+                Spacer(
+                    modifier =
+                        Modifier.height(8.dp)
+                )
+
+                OutlinedTextField(
+
+                    value = puntuacion,
+
+                    onValueChange = {
+                        puntuacion = it
+                    },
+
+                    modifier = Modifier
+                        .fillMaxWidth(),
+
+                    label = {
+                        Text("Puntuación")
+                    }
+                )
+
+                Spacer(
+                    modifier =
+                        Modifier.height(8.dp)
+                )
+
+                OutlinedTextField(
+
+                    value = vecesPreparada,
+
+                    onValueChange = {
+                        vecesPreparada = it
+                    },
+
+                    modifier = Modifier
+                        .fillMaxWidth(),
+
+                    label = {
+                        Text("Veces preparada")
+                    }
+                )
+
+                Spacer(
+                    modifier =
+                        Modifier.height(12.dp)
+                )
+
+                Button(
+
+                    onClick = {
+
+                        if (
+
+                            comentario.isNotBlank()
+
+                            &&
+
+                            puntuacion.isNotBlank()
+
+                            &&
+
+                            vecesPreparada.isNotBlank()
+
+                        ) {
+
+                            viewModel.guardarOpinion(
+
+                                id,
+
+                                comentario,
+
+                                puntuacion.toInt(),
+
+                                vecesPreparada.toInt()
+                            )
+
+                            comentario = ""
+                            puntuacion = ""
+                            vecesPreparada = ""
+                        }
+                    }
+
+                ) {
+
+                    Text(
+                        text = "Guardar opinión"
+                    )
+                }
+
+                Spacer(
+                    modifier =
+                        Modifier.height(16.dp)
                 )
             }
 

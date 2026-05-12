@@ -1,9 +1,12 @@
 package com.example.gestionrecetaschef.data.remoto
 
 import com.example.gestionrecetaschef.domain.modelo.DetalleReceta
+import com.example.gestionrecetaschef.domain.modelo.OpinionRequest
 import com.example.gestionrecetaschef.domain.modelo.Receta
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 interface ServicioRecetas {
 
@@ -18,4 +21,11 @@ interface ServicioRecetas {
         id: Int
 
     ): DetalleReceta
+    @POST("opiniones")
+    suspend fun guardarOpinion(
+
+        @Body
+        opinion: OpinionRequest
+
+    )
 }
