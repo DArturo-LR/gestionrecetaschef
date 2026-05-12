@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const inicializarBaseDatos =
+    require("./config/inicializarBaseDatos");
 
 const recetasRutas =
     require("./rutas/recetasRutas");
@@ -17,6 +19,8 @@ app.use("/opiniones", opinionesRutas);
 app.get("/", (req, res) => {
     res.send("Servidor funcionando");
 });
+
+inicializarBaseDatos();
 
 app.listen(3000, "0.0.0.0", () => {
     console.log("Servidor ejecutándose");
