@@ -21,4 +21,10 @@ class RecetasRepositorio {
         RetrofitCliente
             .servicio
             .guardarOpinion(opinion)
+    suspend fun obtenerEstadisticas(
+        id: Int
+    ) =
+        RetrofitCliente
+            .servicio
+            .obtenerEstadisticas(id)
 }

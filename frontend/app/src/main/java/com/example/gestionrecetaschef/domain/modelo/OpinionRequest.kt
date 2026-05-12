@@ -6,7 +6,7 @@ data class OpinionRequest(
 
     val comentario: String,
 
-    val puntuacion: Int,
+    val puntuacion: Double,
 
     val veces_preparada: Int
 )

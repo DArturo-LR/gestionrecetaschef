@@ -25,6 +25,8 @@ fun DetallePantalla(
 
     val detalle by
     viewModel.detalle.collectAsState()
+    val estadisticas by
+    viewModel.estadisticas.collectAsState()
 
     LaunchedEffect(Unit) {
 
@@ -76,6 +78,23 @@ fun DetallePantalla(
                     text =
                         it.receta.descripcion
                 )
+                Spacer(
+                    modifier =
+                        Modifier.height(8.dp)
+                )
+
+                estadisticas?.let {
+
+                    Text(
+                        text =
+                            "Promedio puntuación: ${it.promedio_puntuacion}"
+                    )
+
+                    Text(
+                        text =
+                            "Opiniones registradas: ${it.total_opiniones}"
+                    )
+                }
 
                 Spacer(
                     modifier =
@@ -249,7 +268,7 @@ fun DetallePantalla(
 
                                 comentario,
 
-                                puntuacion.toInt(),
+                                puntuacion.toDoubleOrNull() ?: 0.0,
 
                                 vecesPreparada.toInt()
                             )

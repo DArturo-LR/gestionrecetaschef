@@ -1,6 +1,7 @@
 package com.example.gestionrecetaschef.data.remoto
 
 import com.example.gestionrecetaschef.domain.modelo.DetalleReceta
+import com.example.gestionrecetaschef.domain.modelo.Estadisticas
 import com.example.gestionrecetaschef.domain.modelo.OpinionRequest
 import com.example.gestionrecetaschef.domain.modelo.Receta
 import retrofit2.http.GET
@@ -28,4 +29,11 @@ interface ServicioRecetas {
         opinion: OpinionRequest
 
     )
+    @GET("recetas/{id}/estadisticas")
+    suspend fun obtenerEstadisticas(
+
+        @Path("id")
+        id: Int
+
+    ): Estadisticas
 }

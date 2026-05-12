@@ -4,6 +4,6 @@ data class Opinion(
     val id: Int,
     val receta_id: Int,
     val comentario: String,
-    val puntuacion: Int,
+    val puntuacion: Double,
     val veces_preparada: Int
 )
