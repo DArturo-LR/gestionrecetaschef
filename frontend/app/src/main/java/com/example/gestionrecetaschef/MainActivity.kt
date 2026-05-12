@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.gestionrecetaschef.ui.navegacion.Navegacion
 import com.example.gestionrecetaschef.ui.recetas.RecetasPantalla
 import com.example.gestionrecetaschef.ui.theme.GestionrecetaschefTheme
 
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
             MaterialTheme {
 
-                RecetasPantalla()
+                Navegacion()
 
             }
         }

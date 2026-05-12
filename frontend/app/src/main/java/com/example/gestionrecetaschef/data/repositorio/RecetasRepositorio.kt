@@ -8,4 +8,10 @@ class RecetasRepositorio {
         RetrofitCliente
             .servicio
             .obtenerRecetas()
+    suspend fun obtenerDetalleReceta(
+        id: Int
+    ) =
+        RetrofitCliente
+            .servicio
+            .obtenerDetalleReceta(id)
 }

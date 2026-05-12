@@ -13,12 +13,12 @@ import androidx.compose.runtime.*
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-
+import androidx.navigation.NavHostController
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun RecetasPantalla(
-
+    navController: NavHostController,
     viewModel: RecetasViewModel =
         viewModel()
 
@@ -45,6 +45,13 @@ fun RecetasPantalla(
         items(recetas) { receta ->
 
             Card(
+                onClick = {
+
+                    navController.navigate(
+                        "detalle/${receta.id}"
+                    )
+                },
+
 
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -55,6 +62,7 @@ fun RecetasPantalla(
                     )
 
             ) {
+
 
                 Column(
 
@@ -95,6 +103,7 @@ fun RecetasPantalla(
                     Text(
                         text = receta.descripcion
                     )
+
                 }
             }
         }
