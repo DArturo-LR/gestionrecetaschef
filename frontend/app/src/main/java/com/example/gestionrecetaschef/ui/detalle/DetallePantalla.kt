@@ -40,9 +40,7 @@ fun DetallePantalla(
         mutableStateOf("")
     }
 
-    var vecesPreparada by remember {
-        mutableStateOf("")
-    }
+
 
     detalle?.let {
 
@@ -93,6 +91,10 @@ fun DetallePantalla(
                     Text(
                         text =
                             "Opiniones registradas: ${it.total_opiniones}"
+                    )
+                    Text(
+                        text =
+                            "Veces preparada: ${it.total_preparaciones}"
                     )
                 }
 
@@ -223,21 +225,6 @@ fun DetallePantalla(
                         Modifier.height(8.dp)
                 )
 
-                OutlinedTextField(
-
-                    value = vecesPreparada,
-
-                    onValueChange = {
-                        vecesPreparada = it
-                    },
-
-                    modifier = Modifier
-                        .fillMaxWidth(),
-
-                    label = {
-                        Text("Veces preparada")
-                    }
-                )
 
                 Spacer(
                     modifier =
@@ -256,10 +243,6 @@ fun DetallePantalla(
 
                             puntuacion.isNotBlank()
 
-                            &&
-
-                            vecesPreparada.isNotBlank()
-
                         ) {
 
                             viewModel.guardarOpinion(
@@ -268,14 +251,12 @@ fun DetallePantalla(
 
                                 comentario,
 
-                                puntuacion.toDoubleOrNull() ?: 0.0,
+                                puntuacion.toDoubleOrNull() ?: 0.0
 
-                                vecesPreparada.toInt()
                             )
 
                             comentario = ""
                             puntuacion = ""
-                            vecesPreparada = ""
                         }
                     }
 

@@ -6,7 +6,6 @@ import com.example.gestionrecetaschef.domain.modelo.CrearRecetaRequest
 import com.example.gestionrecetaschef.domain.modelo.OpinionRequest
 
 class RecetasRepositorio {
-
     suspend fun obtenerRecetas() =
         RetrofitCliente
             .servicio
@@ -23,18 +22,17 @@ class RecetasRepositorio {
         RetrofitCliente
             .servicio
             .guardarOpinion(opinion)
+
     suspend fun obtenerEstadisticas(
         id: Int
     ) =
         RetrofitCliente
             .servicio
             .obtenerEstadisticas(id)
+
     suspend fun crearReceta(
-
         receta: CrearRecetaRequest
-
     ) {
-
         servicio.crearReceta(receta)
     }
 }

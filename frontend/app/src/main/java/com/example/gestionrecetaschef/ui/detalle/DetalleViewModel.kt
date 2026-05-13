@@ -61,8 +61,6 @@ class DetalleViewModel :
 
         puntuacion: Double,
 
-        vecesPreparada: Int
-
     ) {
 
         viewModelScope.launch {
@@ -74,8 +72,7 @@ class DetalleViewModel :
                     OpinionRequest(
                         recetaId,
                         comentario,
-                        puntuacion,
-                        vecesPreparada
+                        puntuacion
                     )
                 )
 

@@ -54,7 +54,7 @@ const inicializarBaseDatos = async () => {
             receta_id INT,
             comentario TEXT,
             puntuacion FLOAT,
-            veces_preparada INT,
+            veces_preparada INT NULL,
             fecha_opinion TIMESTAMP
                 DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (receta_id)
