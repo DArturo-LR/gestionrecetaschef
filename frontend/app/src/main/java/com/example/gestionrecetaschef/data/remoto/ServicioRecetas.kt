@@ -1,5 +1,6 @@
 package com.example.gestionrecetaschef.data.remoto
 
+import com.example.gestionrecetaschef.domain.modelo.CrearRecetaRequest
 import com.example.gestionrecetaschef.domain.modelo.DetalleReceta
 import com.example.gestionrecetaschef.domain.modelo.Estadisticas
 import com.example.gestionrecetaschef.domain.modelo.OpinionRequest
@@ -27,6 +28,13 @@ interface ServicioRecetas {
 
         @Body
         opinion: OpinionRequest
+
+    )
+    @POST("recetas")
+    suspend fun crearReceta(
+
+        @Body
+        receta: CrearRecetaRequest
 
     )
     @GET("recetas/{id}/estadisticas")

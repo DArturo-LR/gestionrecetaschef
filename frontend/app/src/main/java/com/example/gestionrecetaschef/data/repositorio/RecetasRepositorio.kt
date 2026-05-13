@@ -1,6 +1,8 @@
 package com.example.gestionrecetaschef.data.repositorio
 
 import com.example.gestionrecetaschef.data.remoto.RetrofitCliente
+import com.example.gestionrecetaschef.data.remoto.RetrofitCliente.servicio
+import com.example.gestionrecetaschef.domain.modelo.CrearRecetaRequest
 import com.example.gestionrecetaschef.domain.modelo.OpinionRequest
 
 class RecetasRepositorio {
@@ -27,4 +29,12 @@ class RecetasRepositorio {
         RetrofitCliente
             .servicio
             .obtenerEstadisticas(id)
+    suspend fun crearReceta(
+
+        receta: CrearRecetaRequest
+
+    ) {
+
+        servicio.crearReceta(receta)
+    }
 }

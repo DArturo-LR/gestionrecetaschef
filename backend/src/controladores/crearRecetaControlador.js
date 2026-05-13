@@ -3,13 +3,16 @@ const conexion = require("../config/conexion");
 const crearReceta = async (req, res) => {
 
     const {
-        nombre,
-        descripcion,
-        categoria,
-        tiempo_preparacion,
-        ingredientes,
-        pasos
-    } = req.body;
+    nombre,
+    descripcion,
+    categoria,
+    tiempo_preparacion,
+    ingredientes,
+    pasos,
+    comentario,
+    puntuacion,
+    veces_preparada
+} = req.body;
 
     try {
 
@@ -57,6 +60,22 @@ const crearReceta = async (req, res) => {
                     recetaId,
                     pasos[i],
                     i + 1
+                ]
+            );
+        }
+        if (puntuacion && veces_preparada) {
+
+            await conexion.query(
+                `
+                INSERT INTO opiniones
+                (receta_id, comentario, puntuacion, veces_preparada)
+                VALUES (?, ?, ?, ?)
+                `,
+                [
+                    recetaId,
+                    comentario || "",
+                    puntuacion,
+                    veces_preparada
                 ]
             );
         }

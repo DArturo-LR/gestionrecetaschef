@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.Spacer
 
 @Composable
 fun RecetasPantalla(
@@ -31,79 +33,106 @@ fun RecetasPantalla(
         viewModel.cargarRecetas()
     }
 
-    LazyColumn(
+    Column(
 
         modifier = Modifier
             .fillMaxSize()
-            .padding(12.dp),
-
-        verticalArrangement =
-            Arrangement.spacedBy(10.dp)
+            .padding(12.dp)
 
     ) {
 
-        items(recetas) { receta ->
+        Button(
 
-            Card(
-                onClick = {
+            onClick = {
 
-                    navController.navigate(
-                        "detalle/${receta.id}"
-                    )
-                },
+                navController.navigate(
+                    "crear"
+                )
+            }
 
+        ) {
 
-                modifier = Modifier
-                    .fillMaxWidth(),
+            Text(
+                text = "Nueva receta"
+            )
+        }
 
-                elevation =
-                    CardDefaults.cardElevation(
-                        defaultElevation = 4.dp
-                    )
+        Spacer(
+            modifier =
+                Modifier.height(12.dp)
+        )
 
-            ) {
+        LazyColumn(
 
+            modifier = Modifier
+                .fillMaxSize(),
 
-                Column(
+            verticalArrangement =
+                Arrangement.spacedBy(10.dp)
+
+        ) {
+
+            items(recetas) { receta ->
+
+                Card(
+
+                    onClick = {
+
+                        navController.navigate(
+                            "detalle/${receta.id}"
+                        )
+                    },
 
                     modifier = Modifier
-                        .padding(12.dp)
+                        .fillMaxWidth(),
+
+                    elevation =
+                        CardDefaults.cardElevation(
+                            defaultElevation = 4.dp
+                        )
 
                 ) {
 
-                    Text(
-                        text = receta.nombre,
+                    Column(
 
-                        style =
-                            MaterialTheme
-                                .typography
-                                .titleLarge
-                    )
+                        modifier = Modifier
+                            .padding(12.dp)
 
-                    Spacer(
-                        modifier =
-                            Modifier.height(6.dp)
-                    )
+                    ) {
 
-                    Text(
-                        text =
-                            "Categoría: ${receta.categoria}"
-                    )
+                        Text(
+                            text = receta.nombre,
 
-                    Text(
-                        text =
-                            "Tiempo: ${receta.tiempo_preparacion} min"
-                    )
+                            style =
+                                MaterialTheme
+                                    .typography
+                                    .titleLarge
+                        )
 
-                    Spacer(
-                        modifier =
-                            Modifier.height(6.dp)
-                    )
+                        Spacer(
+                            modifier =
+                                Modifier.height(6.dp)
+                        )
 
-                    Text(
-                        text = receta.descripcion
-                    )
+                        Text(
+                            text =
+                                "Categoría: ${receta.categoria}"
+                        )
 
+                        Text(
+                            text =
+                                "Tiempo: ${receta.tiempo_preparacion} min"
+                        )
+
+                        Spacer(
+                            modifier =
+                                Modifier.height(6.dp)
+                        )
+
+                        Text(
+                            text = receta.descripcion
+                        )
+                    }
                 }
             }
         }
