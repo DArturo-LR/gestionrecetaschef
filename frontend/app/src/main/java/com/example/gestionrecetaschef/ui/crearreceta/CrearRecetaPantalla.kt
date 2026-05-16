@@ -47,6 +47,10 @@ fun CrearRecetaPantalla(
     var tiempoPreparacion by remember {
         mutableStateOf("")
     }
+
+    var imagenUrl by remember {
+        mutableStateOf("")
+    }
     var ingrediente by remember {
         mutableStateOf("")
     }
@@ -141,6 +145,22 @@ fun CrearRecetaPantalla(
 
             label = {
                 Text("Categoría")
+            }
+        )
+
+        OutlinedTextField(
+
+            value = imagenUrl,
+
+            onValueChange = {
+                imagenUrl = it
+            },
+
+            modifier = Modifier
+                .fillMaxWidth(),
+
+            label = {
+                Text("URL de imagen")
             }
         )
         OutlinedTextField(
@@ -298,6 +318,8 @@ fun CrearRecetaPantalla(
                             tiempo_preparacion =
                                 tiempoPreparacion.toInt(),
 
+                            imagen = imagenUrl,
+
                             ingredientes =
                                 listaIngredientes,
 
@@ -322,6 +344,7 @@ fun CrearRecetaPantalla(
                     descripcion = ""
                     categoria = ""
                     tiempoPreparacion = ""
+                    imagenUrl = ""
                 }
             }
 

@@ -7,6 +7,7 @@ const crearReceta = async (req, res) => {
     descripcion,
     categoria,
     tiempo_preparacion,
+    imagen,
     ingredientes,
     pasos,
     comentario,
@@ -20,14 +21,15 @@ const crearReceta = async (req, res) => {
             await conexion.query(
                 `
                 INSERT INTO recetas
-                (nombre, descripcion, categoria, tiempo_preparacion)
-                VALUES (?, ?, ?, ?)
+                (nombre, descripcion, categoria, tiempo_preparacion, imagen)
+                VALUES (?, ?, ?, ?, ?)
                 `,
                 [
                     nombre,
                     descripcion,
                     categoria,
-                    tiempo_preparacion
+                    tiempo_preparacion,
+                    imagen || null
                 ]
             );
 

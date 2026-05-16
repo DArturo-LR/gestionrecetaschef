@@ -12,11 +12,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.material3.Button
 import androidx.compose.foundation.layout.Spacer
+import coil.compose.AsyncImage
 
 @Composable
 fun RecetasPantalla(
@@ -99,6 +101,22 @@ fun RecetasPantalla(
                             .padding(12.dp)
 
                     ) {
+
+                        if (receta.imagen.isNotBlank()) {
+
+                            AsyncImage(
+                                model = receta.imagen,
+                                contentDescription = receta.nombre,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(180.dp),
+                                contentScale = ContentScale.Crop
+                            )
+
+                            Spacer(
+                                modifier = Modifier.height(8.dp)
+                            )
+                        }
 
                         Text(
                             text = receta.nombre,

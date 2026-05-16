@@ -7,6 +7,7 @@ data class CrearRecetaRequest(
     val descripcion: String,
     val categoria: String,
     val tiempo_preparacion: Int,
+    val imagen: String,
     val ingredientes: List<String>,
     val pasos: List<String>,
     val comentario: String,

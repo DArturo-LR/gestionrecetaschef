@@ -9,9 +9,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 
 @Composable
 fun DetallePantalla(
@@ -71,6 +73,22 @@ fun DetallePantalla(
                     modifier =
                         Modifier.height(8.dp)
                 )
+
+                if (it.receta.imagen.isNotBlank()) {
+
+                    AsyncImage(
+                        model = it.receta.imagen,
+                        contentDescription = it.receta.nombre,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(220.dp),
+                        contentScale = ContentScale.Crop
+                    )
+
+                    Spacer(
+                        modifier = Modifier.height(8.dp)
+                    )
+                }
 
                 Text(
                     text =
