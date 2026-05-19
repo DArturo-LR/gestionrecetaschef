@@ -18,88 +18,56 @@ import androidx.navigation.NavHostController
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.material3.Button
 import androidx.compose.foundation.layout.Spacer
+import androidx.navigation.NavBackStackEntry
 import coil.compose.AsyncImage
-
+import androidx.navigation.compose.currentBackStackEntryAsState
 @Composable
 fun RecetasPantalla(
     navController: NavHostController,
-    viewModel: RecetasViewModel =
-        viewModel()
-
+    viewModel: RecetasViewModel = viewModel()
 ) {
 
-    val recetas by
-    viewModel.recetas.collectAsState()
+    val recetas by viewModel.recetas.collectAsState()
 
-    LaunchedEffect(Unit) {
+    val backStackEntry by navController.currentBackStackEntryAsState()
+
+    LaunchedEffect(backStackEntry) {
         viewModel.cargarRecetas()
     }
 
     Column(
-
         modifier = Modifier
             .fillMaxSize()
             .padding(12.dp)
-
     ) {
 
         Button(
-
             onClick = {
-
-                navController.navigate(
-                    "crear"
-                )
+                navController.navigate("crear")
             }
-
         ) {
-
-            Text(
-                text = "Nueva receta"
-            )
+            Text(text = "Nueva receta")
         }
 
-        Spacer(
-            modifier =
-                Modifier.height(12.dp)
-        )
+        Spacer(modifier = Modifier.height(12.dp))
 
         LazyColumn(
-
-            modifier = Modifier
-                .fillMaxSize(),
-
-            verticalArrangement =
-                Arrangement.spacedBy(10.dp)
-
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
 
             items(recetas) { receta ->
 
                 Card(
-
                     onClick = {
-
-                        navController.navigate(
-                            "detalle/${receta.id}"
-                        )
+                        navController.navigate("detalle/${receta.id}")
                     },
-
-                    modifier = Modifier
-                        .fillMaxWidth(),
-
-                    elevation =
-                        CardDefaults.cardElevation(
-                            defaultElevation = 4.dp
-                        )
-
+                    modifier = Modifier.fillMaxWidth(),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                 ) {
 
                     Column(
-
-                        modifier = Modifier
-                            .padding(12.dp)
-
+                        modifier = Modifier.padding(12.dp)
                     ) {
 
                         if (receta.imagen.isNotBlank()) {
@@ -113,43 +81,23 @@ fun RecetasPantalla(
                                 contentScale = ContentScale.Crop
                             )
 
-                            Spacer(
-                                modifier = Modifier.height(8.dp)
-                            )
+                            Spacer(modifier = Modifier.height(8.dp))
                         }
 
                         Text(
                             text = receta.nombre,
-
-                            style =
-                                MaterialTheme
-                                    .typography
-                                    .titleLarge
+                            style = MaterialTheme.typography.titleLarge
                         )
 
-                        Spacer(
-                            modifier =
-                                Modifier.height(6.dp)
-                        )
+                        Spacer(modifier = Modifier.height(6.dp))
 
-                        Text(
-                            text =
-                                "Categoría: ${receta.categoria}"
-                        )
+                        Text(text = "Categoría: ${receta.categoria}")
 
-                        Text(
-                            text =
-                                "Tiempo: ${receta.tiempo_preparacion} min"
-                        )
+                        Text(text = "Tiempo: ${receta.tiempo_preparacion} min")
 
-                        Spacer(
-                            modifier =
-                                Modifier.height(6.dp)
-                        )
+                        Spacer(modifier = Modifier.height(6.dp))
 
-                        Text(
-                            text = receta.descripcion
-                        )
+                        Text(text = receta.descripcion)
                     }
                 }
             }

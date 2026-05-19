@@ -15,11 +15,9 @@ fun Navegacion() {
 
     NavHost(
 
-
         navController = navController,
 
-        startDestination =
-            "recetas"
+        startDestination = "recetas"
 
     ) {
 
@@ -29,14 +27,15 @@ fun Navegacion() {
                 navController
             )
         }
+
         composable("crear") {
 
-            CrearRecetaPantalla()
+            CrearRecetaPantalla(
+                navController = navController
+            )
         }
 
-        composable(
-            "detalle/{id}"
-        ) {
+        composable("detalle/{id}") {
 
             val id =
                 it.arguments
@@ -44,7 +43,6 @@ fun Navegacion() {
                     ?.toInt()
 
             if (id != null) {
-
                 DetallePantalla(id)
             }
         }
