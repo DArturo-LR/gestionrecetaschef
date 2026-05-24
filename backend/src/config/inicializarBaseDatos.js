@@ -4,7 +4,7 @@ const inicializarBaseDatos = async () => {
 
     const conexion = await mysql.createConnection({
         host: "localhost",
-        user: "chef",
+        user: "root",
         password: "1234"
     });
 

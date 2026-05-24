@@ -6,5 +6,5 @@ data class Receta(
     val descripcion: String,
     val categoria: String,
     val tiempo_preparacion: Int,
-    val imagen: String
+    val imagen: String?
 )

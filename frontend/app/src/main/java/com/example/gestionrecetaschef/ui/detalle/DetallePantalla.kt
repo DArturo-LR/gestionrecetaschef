@@ -74,7 +74,7 @@ fun DetallePantalla(
                         Modifier.height(8.dp)
                 )
 
-                if (it.receta.imagen.isNotBlank()) {
+                if (!it.receta.imagen.isNullOrBlank()) {
 
                     AsyncImage(
                         model = it.receta.imagen,

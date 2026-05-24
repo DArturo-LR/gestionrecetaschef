@@ -70,7 +70,7 @@ fun RecetasPantalla(
                         modifier = Modifier.padding(12.dp)
                     ) {
 
-                        if (receta.imagen.isNotBlank()) {
+                        if (!receta.imagen.isNullOrBlank()) {
 
                             AsyncImage(
                                 model = receta.imagen,
