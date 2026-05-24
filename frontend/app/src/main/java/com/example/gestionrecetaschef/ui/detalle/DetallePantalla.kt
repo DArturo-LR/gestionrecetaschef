@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,6 +32,7 @@ fun DetallePantalla(
     viewModel: DetalleViewModel = viewModel()
 ) {
     val detalle by viewModel.detalle.collectAsState()
+    val estadisticas by viewModel.estadisticas.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.cargarDetalle(id)
@@ -75,8 +77,13 @@ fun DetallePantalla(
                         
                         Row(modifier = Modifier.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Default.Star, null, tint = Color(0xFFFFB300), modifier = Modifier.size(18.dp))
-                            Text(" 4.7 (23) ", fontWeight = FontWeight.Bold)
-                            Text(" • 3 porciones • 30 min • Fácil", color = Color.Gray, fontSize = 14.sp)
+                            
+                            val promedio = estadisticas?.promedio_puntuacion ?: 0.0
+                            val opiniones = estadisticas?.total_opiniones ?: 0
+                            val preparaciones = estadisticas?.total_preparaciones ?: 0
+                            
+                            Text(" ${String.format(Locale.US, "%.1f", promedio)} ($opiniones) ", fontWeight = FontWeight.Bold)
+                            Text(" • $preparaciones prep. • ${item.receta.tiempo_preparacion} min", color = Color.Gray, fontSize = 14.sp)
                         }
 
                         Surface(color = Color(0xFFE8F5E9), shape = RoundedCornerShape(16.dp)) {
@@ -118,29 +125,19 @@ fun DetallePantalla(
                 }
 
                 item {
-                    Row(
-                        modifier = Modifier.padding(16.dp).fillMaxWidth(), 
-                        verticalAlignment = Alignment.CenterVertically
+                    // Botón único que ocupa todo el ancho
+                    Button(
+                        onClick = { 
+                            navController.navigate("registrar_preparacion/${item.receta.id}")
+                        }, 
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                            .height(54.dp), 
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2E7D32)),
+                        shape = RoundedCornerShape(12.dp)
                     ) {
-                        OutlinedButton(
-                            onClick = { /* Favorito */ }, 
-                            modifier = Modifier.weight(1f),
-                            shape = RoundedCornerShape(12.dp)
-                        ) { 
-                            Text("Favorito") 
-                        }
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Button(
-                            onClick = { 
-                                // NAVEGACIÓN A LA NUEVA PANTALLA
-                                navController.navigate("registrar_preparacion/${item.receta.id}")
-                            }, 
-                            modifier = Modifier.weight(2f), 
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2E7D32)),
-                            shape = RoundedCornerShape(12.dp)
-                        ) {
-                            Text("Registrar experiencia", color = Color.White)
-                        }
+                        Text("Registrar experiencia", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                     }
                 }
             }

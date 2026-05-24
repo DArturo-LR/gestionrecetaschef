@@ -8,7 +8,14 @@ const obtenerRecetas = async (req, res) => {
 
         const [recetas] =
             await conexion.query(
-                "SELECT * FROM recetas"
+                `SELECT 
+                r.*, 
+                IFNULL(AVG(o.puntuacion), 0) AS promedio_puntuacion, 
+                COUNT(o.id) AS total_opiniones, 
+                IFNULL(SUM(o.veces_preparada), 0) AS total_preparaciones
+                FROM recetas r
+                LEFT JOIN opiniones o ON r.id = o.receta_id
+                GROUP BY r.id`
             );
 
         res.json(recetas);
