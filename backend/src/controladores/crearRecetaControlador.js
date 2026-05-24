@@ -9,10 +9,7 @@ const crearReceta = async (req, res) => {
     tiempo_preparacion,
     imagen,
     ingredientes,
-    pasos,
-    comentario,
-    puntuacion,
-    veces_preparada
+    pasos
 } = req.body;
 
     try {
@@ -62,22 +59,6 @@ const crearReceta = async (req, res) => {
                     recetaId,
                     pasos[i],
                     i + 1
-                ]
-            );
-        }
-        if (puntuacion && veces_preparada) {
-
-            await conexion.query(
-                `
-                INSERT INTO opiniones
-                (receta_id, comentario, puntuacion, veces_preparada)
-                VALUES (?, ?, ?, ?)
-                `,
-                [
-                    recetaId,
-                    comentario || "",
-                    puntuacion,
-                    veces_preparada
                 ]
             );
         }

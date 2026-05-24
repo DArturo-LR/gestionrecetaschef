@@ -54,13 +54,10 @@ class DetalleViewModel :
     }
 
     fun guardarOpinion(
-
         recetaId: Int,
-
         comentario: String,
-
         puntuacion: Double,
-
+        vecesPreparada: Int // Añadido este parámetro
     ) {
 
         viewModelScope.launch {
@@ -68,11 +65,11 @@ class DetalleViewModel :
             try {
 
                 repositorio.guardarOpinion(
-
                     OpinionRequest(
                         recetaId,
                         comentario,
-                        puntuacion
+                        puntuacion,
+                        vecesPreparada // Pasado aquí
                     )
                 )
 

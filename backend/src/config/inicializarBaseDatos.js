@@ -17,6 +17,16 @@ const inicializarBaseDatos = async () => {
     `);
 
     await conexion.query(`
+        CREATE TABLE IF NOT EXISTS usuarios (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            nombre VARCHAR(100) NOT NULL,
+            email VARCHAR(100) NOT NULL UNIQUE,
+            password VARCHAR(255) NOT NULL,
+            fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    `);
+
+    await conexion.query(`
         CREATE TABLE IF NOT EXISTS recetas (
             id INT AUTO_INCREMENT PRIMARY KEY,
             nombre VARCHAR(100),
@@ -52,13 +62,16 @@ const inicializarBaseDatos = async () => {
         CREATE TABLE IF NOT EXISTS opiniones (
             id INT AUTO_INCREMENT PRIMARY KEY,
             receta_id INT,
+            usuario_id INT,
             comentario TEXT,
             puntuacion FLOAT,
             veces_preparada INT NULL,
             fecha_opinion TIMESTAMP
                 DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (receta_id)
-                REFERENCES recetas(id)
+                REFERENCES recetas(id),
+            FOREIGN KEY (usuario_id)
+                REFERENCES usuarios(id)
         )
     `);
 
@@ -122,12 +135,13 @@ if (recetas.length === 0) {
 
     await conexion.query(`
         INSERT INTO opiniones
-        (receta_id, comentario,
+        (receta_id, usuario_id, comentario,
         puntuacion, veces_preparada)
         VALUES
 
         (
             1,
+            null,
             'Muy deliciosa',
             5,
             2
@@ -135,6 +149,7 @@ if (recetas.length === 0) {
 
         (
             2,
+            null,
             'Excelente sabor',
             4,
             1

@@ -5,7 +5,8 @@ const guardarOpinion = async (req, res) => {
         const {
             receta_id,
             comentario,
-            puntuacion
+            puntuacion,
+            veces_preparada
         } = req.body;
 
     try {
@@ -13,13 +14,14 @@ const guardarOpinion = async (req, res) => {
         await conexion.query(
             `
             INSERT INTO opiniones
-            (receta_id, comentario, puntuacion)
-            VALUES (?, ?, ?)
+            (receta_id, comentario, puntuacion, veces_preparada)
+            VALUES (?, ?, ?, ?)
             `,
             [
                 receta_id,
                 comentario,
-                puntuacion
+                puntuacion,
+                veces_preparada || 0
             ]
         );
 
