@@ -60,6 +60,7 @@ fun DetallePantalla(
                     .fillMaxSize()
                     .background(Color.White)
             ) {
+                // 1. Imagen y Cabecera
                 item {
                     AsyncImage(
                         model = item.receta.imagen ?: "https://via.placeholder.com/400",
@@ -79,10 +80,10 @@ fun DetallePantalla(
                             Icon(Icons.Default.Star, null, tint = Color(0xFFFFB300), modifier = Modifier.size(18.dp))
                             
                             val promedio = estadisticas?.promedio_puntuacion ?: 0.0
-                            val opiniones = estadisticas?.total_opiniones ?: 0
+                            val opinionesTotal = estadisticas?.total_opiniones ?: 0
                             val preparaciones = estadisticas?.total_preparaciones ?: 0
                             
-                            Text(" ${String.format(Locale.US, "%.1f", promedio)} ($opiniones) ", fontWeight = FontWeight.Bold)
+                            Text(" ${String.format(Locale.US, "%.1f", promedio)} ($opinionesTotal) ", fontWeight = FontWeight.Bold)
                             Text(" • $preparaciones prep. • ${item.receta.tiempo_preparacion} min", color = Color.Gray, fontSize = 14.sp)
                         }
 
@@ -101,6 +102,7 @@ fun DetallePantalla(
                     }
                 }
 
+                // 2. Lista de Ingredientes
                 items(item.ingredientes) { ing ->
                     Row(
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp), 
@@ -111,6 +113,7 @@ fun DetallePantalla(
                     }
                 }
 
+                // 3. Preparación
                 item {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text("Preparación", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
@@ -124,8 +127,61 @@ fun DetallePantalla(
                     }
                 }
 
+                // 4. NUEVA SECCIÓN: Opiniones de la comunidad
                 item {
-                    // Botón único que ocupa todo el ancho
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Spacer(modifier = Modifier.height(24.dp))
+                        Text(
+                            text = "Opiniones de la comunidad", 
+                            style = MaterialTheme.typography.titleLarge, 
+                            fontWeight = FontWeight.Bold
+                        )
+                        if (item.opiniones.isEmpty()) {
+                            Text(
+                                text = "Aún no hay opiniones. ¡Sé el primero!", 
+                                color = Color.Gray, 
+                                modifier = Modifier.padding(vertical = 8.dp)
+                            )
+                        }
+                    }
+                }
+
+                items(item.opiniones) { opinion ->
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 6.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F5F5)),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Column(modifier = Modifier.padding(12.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                repeat(5) { index ->
+                                    Icon(
+                                        imageVector = Icons.Default.Star,
+                                        contentDescription = null,
+                                        tint = if (index < opinion.puntuacion) Color(0xFFFFB300) else Color.LightGray,
+                                        modifier = Modifier.size(16.dp)
+                                    )
+                                }
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = "${opinion.puntuacion}", 
+                                    fontWeight = FontWeight.Bold, 
+                                    fontSize = 14.sp
+                                )
+                            }
+                            if (opinion.comentario.isNotBlank()) {
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text(text = opinion.comentario, fontSize = 14.sp, color = Color.DarkGray)
+                            }
+                        }
+                    }
+                }
+
+                // 5. Botón de Acción Final
+                item {
+                    Spacer(modifier = Modifier.height(24.dp))
                     Button(
                         onClick = { 
                             navController.navigate("registrar_preparacion/${item.receta.id}")
@@ -137,8 +193,9 @@ fun DetallePantalla(
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2E7D32)),
                         shape = RoundedCornerShape(12.dp)
                     ) {
-                        Text("Registrar experiencia", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        Text("Registrar mi experiencia", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                     }
+                    Spacer(modifier = Modifier.height(32.dp))
                 }
             }
         }
