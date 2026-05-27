@@ -9,8 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class CrearRecetaViewModel(
-    private val crearRecetaUseCase: CrearRecetaUseCase = CrearRecetaUseCase()
+class CrearRecetaViewModel(private val crearRecetaUseCase: CrearRecetaUseCase = CrearRecetaUseCase()
 ) : ViewModel() {
 
     private val _guardado = MutableStateFlow(false)
